@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="This is an online banking website that helps you create your own banking account, it allows you to make a deposit, withdrawal, request a loan, and also transfer many to another account"
+    />
+    <meta name="keywords" content="HTML, CSS, JavaScript" />
+    <meta name="author" content="Mohamed Aboubakr" />
+    <link href="style.css" rel="stylesheet" />
+    <script type="module" defer src="main.js"></script>
+    <title>Online-banking</title>
+  </head>
+  <body>
+    <header class="app-header">
+      <h1 class="app-logo">Simple bank</h1>
+      <div class="manipulate-nav">
+        <span class="top"></span>
+        <span class="middle"></span>
+        <span class="bottom"></span>
+      </div>
+      <nav class="nav" data-state="hidden">
+        <ul class="other">
+          <li><a href="#features" class="different">Features</a></li>
+          <li>
+            <a href="#operations" class="different">Operations</a>
+          </li>
+          <li>
+            <a href="#testimonials" class="different">Testimonials</a>
+          </li>
+        </ul>
+        <div class="login">
+          <button class="login-btn create-account-btn different">
+            Create account
+          </button>
+          <button class="login-btn open-account-btn different">
+            Open account
+          </button>
+        </div>
+      </nav>
+    </header>
+    <section class="intro">
+      <img src="./imgs/credit-card.png" alt="" />
+      <h1>Your simple onling banking</h1>
+      <h2>Get loan for your business growth or startup...</h2>
+      <button class="btn-start create-account-btn">Get Started</button>
+      <button class="learn-more-btn">
+        Learn more
+        <svg
+          width="20px"
+          height="20px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 20L12 4"
+            stroke="#263fa0"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M6 14L11.9375 19.9375V19.9375C11.972 19.972 12.028 19.972 12.0625 19.9375V19.9375L18 14"
+            stroke="#263fa0"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </section>
+    <section class="features-section" data-state="hidden">
+      <div class="section-intro">
+        <h1>Features</h1>
+        <p>Everything you need in a modern bank and more</p>
+      </div>
+      <div class="all-features container">
+        <img
+          alt=""
+          class="feature-img"
+          data-src="./imgs/digital-bank.jpg"
+          data-state="lazy"
+        />
+        <div class="feature-details">
+          <div class="circle"></div>
+          <h1>100% digital bank</h1>
+          <p>
+            You can do everything related to banking online, make a deposit or a
+            withdrawal, request a loan, and more...
+          </p>
+        </div>
+        <div class="feature-details">
+          <div class="circle"></div>
+          <h1>Watch you many grow</h1>
+          <p>
+            By creating a new account you can watch all of your operations in
+            detail, just explore the site and you will enjoy it
+          </p>
+        </div>
+        <img
+          alt=""
+          class="feature-img"
+          data-src="./imgs/watch-money.jpg"
+          data-state="lazy"
+        />
+        <img
+          alt=""
+          class="feature-img"
+          data-src="./imgs/debit-card.jpg"
+          data-state="lazy"
+        />
+        <div class="feature-details">
+          <div class="circle"></div>
+          <h1>Free debit card</h1>
+          <p>
+            We offer you a free debit card with alot of useful features, you can
+            use it easily outside your country
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="operations-section" data-state="hidden">
+      <div class="section-intro">
+        <h1>Operations</h1>
+        <p>
+          We deliver you a lot of operations that you can go ahead and make it
+        </p>
+      </div>
+      <div class="all-operations container">
+        <div class="operations-tabs">
+          <button class="tab" data-tab-operation="deposit" data-state="active">
+            01 Instant deposits
+          </button>
+          <button class="tab" data-tab-operation="withdrawal">
+            02 Instant withdrawals
+          </button>
+          <button class="tab" data-tab-operation="transfer">
+            03 Instant transfers
+          </button>
+          <button class="tab" data-tab-operation="loan">
+            04 Instant loans
+          </button>
+          <button class="tab" data-tab-operation="close">
+            05 Instant closing
+          </button>
+        </div>
+        <div class="operation" data-operation="deposit" data-state="visible">
+          <div class="circle"></div>
+          <div class="operation-details">
+            <h1>Now you can make a deposit right away with just a click</h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
+              voluptatibus commodi quaerat expedita necessitatibus laborum harum
+              optio ab architecto hic nesciunt non fugiat recusandae,
+              accusantium voluptate blanditiis pariatur exercitationem ex?
+            </p>
+          </div>
+        </div>
+        <div class="operation" data-operation="withdrawal" data-state="hidden">
+          <div class="circle"></div>
+          <div class="operation-details">
+            <h1>You can also make a withdrawal right away with just a click</h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
+              voluptatibus commodi quaerat expedita necessitatibus laborum harum
+              optio ab architecto hic nesciunt non fugiat recusandae,
+              accusantium voluptate blanditiis pariatur exercitationem ex?
+            </p>
+          </div>
+        </div>
+        <div class="operation" data-operation="transfer" data-state="hidden">
+          <div class="circle"></div>
+          <div class="operation-details">
+            <h1>Need to transfer money to another account? That's also easy</h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
+              voluptatibus commodi quaerat expedita necessitatibus laborum harum
+              optio ab architecto hic nesciunt non fugiat recusandae,
+              accusantium voluptate blanditiis pariatur exercitationem ex?
+            </p>
+          </div>
+        </div>
+        <div class="operation" data-operation="loan" data-state="hidden">
+          <div class="circle"></div>
+          <div class="operation-details">
+            <h1>
+              Hey, I just needed to tell you that you can also request a loan
+              from the site
+            </h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
+              voluptatibus commodi quaerat expedita necessitatibus laborum harum
+              optio ab architecto hic nesciunt non fugiat recusandae,
+              accusantium voluptate blanditiis pariatur exercitationem ex?
+            </p>
+          </div>
+        </div>
+        <div class="operation" data-operation="close" data-state="hidden">
+          <div class="circle"></div>
+          <div class="operation-details">
+            <h1>
+              If you needed to close your account and delete it, you can do it
+              buddy
+            </h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
+              voluptatibus commodi quaerat expedita necessitatibus laborum harum
+              optio ab architecto hic nesciunt non fugiat recusandae,
+              accusantium voluptate blanditiis pariatur exercitationem ex?
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="testimonials-section" data-state="hidden">
+      <div class="section-intro">
+        <h1>Not sure yet?</h1>
+        <p>
+          Here are some opinions from a lot of people who worked with us, so you
+          can trust us
+        </p>
+      </div>
+              <button class="testimonials-btn previous-testimonial-btn">
+          <svg
+            style="margin-top: 3px"
+            width="35px"
+            height="35px"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4 12L20 12"
+              stroke="#263fa0"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M10 6L4.0625 11.9375V11.9375C4.02798 11.972 4.02798 12.028 4.0625 12.0625V12.0625L10 18"
+              stroke="#263fa0"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <button class="testimonials-btn next-testimonial-btn">
+          <svg
+            style="margin-top: 3px"
+            width="35px"
+            height="35px"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M20 12L4 12"
+              stroke="#263fa0"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M14 18L19.9375 12.0625V12.0625C19.972 12.028 19.972 11.972 19.9375 11.9375V11.9375L14 6"
+              stroke="#263fa0"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      <div class="all-testimonials container">
+        <div class="dots">
+          <div class="dot" data-state="active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <div class="testimonial">
+          <h1>Best decision I've ever made for financial</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
+            debitis harum laborum quam? Tempora odio labore iure atque, ex vero
+            exercitationem inventore deserunt cupiditate facilis magni eum,
+            soluta pariatur facere.
+          </p>
+          <div class="person">
+            <img src="./imgs/user-1.jpg" alt="" />
+            <div class="person-info">
+              <h3>Chris Williams</h3>
+              <span>NYC-USA</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <h1>
+            Easy and smooth website for handling everything related to money
+          </h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
+            debitis harum laborum quam? Tempora odio labore iure atque, ex vero
+            exercitationem inventore deserunt cupiditate facilis magni eum,
+            soluta pariatur facere.
+          </p>
+          <div class="person">
+            <img src="./imgs/user-2.jpg" alt="" />
+            <div class="person-info">
+              <h3>Charize Henry</h3>
+              <span>California-USA</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <h1>
+            This website was unique for me because it offers multiple features
+          </h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
+            debitis harum laborum quam? Tempora odio labore iure atque, ex vero
+            exercitationem inventore deserunt cupiditate facilis magni eum,
+            soluta pariatur facere.
+          </p>
+          <div class="person">
+            <img src="./imgs/user-3.jpg" alt="" />
+            <div class="person-info">
+              <h3>Tom Evans</h3>
+              <span>Rome-Italy</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <h1>With Simple bank everything about my money was handled easily</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
+            debitis harum laborum quam? Tempora odio labore iure atque, ex vero
+            exercitationem inventore deserunt cupiditate facilis magni eum,
+            soluta pariatur facere.
+          </p>
+          <div class="person">
+            <img src="./imgs/user-4.jpg" alt="" />
+            <div class="person-info">
+              <h3>Martin Tom</h3>
+              <span>Washington-USA</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <h1>
+            I'm not gonna type anything, because I am sure that a lot of people
+            loved this website
+          </h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
+            debitis harum laborum quam? Tempora odio labore iure atque, ex vero
+            exercitationem inventore deserunt cupiditate facilis magni eum,
+            soluta pariatur facere.
+          </p>
+          <div class="person">
+            <img src="./imgs/user-5.jpg" alt="" />
+            <div class="person-info">
+              <h3>Chris Evans</h3>
+              <span>Texas-USA</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <h1>Ooh man, this website is amazing</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
+            debitis harum laborum quam? Tempora odio labore iure atque, ex vero
+            exercitationem inventore deserunt cupiditate facilis magni eum,
+            soluta pariatur facere.
+          </p>
+          <div class="person">
+            <img src="./imgs/user-6.jpg" alt="" />
+            <div class="person-info">
+              <h3>John Tom</h3>
+              <span>Mexico-Mexico</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <h1>
+            Amazing website. I was able to do pretty much everything, from now
+            on there is no need to go to the bank
+          </h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
+            debitis harum laborum quam? Tempora odio labore iure atque, ex vero
+            exercitationem inventore deserunt cupiditate facilis magni eum,
+            soluta pariatur facere.
+          </p>
+          <div class="person">
+            <img src="./imgs/user-7.jpg" alt="" />
+            <div class="person-info">
+              <h3>Mark Cruise</h3>
+              <span>NYC-USA</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <h1>Really, this website made my life looks better</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
+            debitis harum laborum quam? Tempora odio labore iure atque, ex vero
+            exercitationem inventore deserunt cupiditate facilis magni eum,
+            soluta pariatur facere.
+          </p>
+          <div class="person">
+            <img src="./imgs/user-8.jpg" alt="" />
+            <div class="person-info">
+              <h3>Kristen Tom</h3>
+              <span>Sydney-Australia</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="finish-section" data-state="hidden">
+      <p>
+        What are you waiting for? Make your finger clicks this button down below
+        and just enjoy the site
+      </p>
+      <button class="btn-start create-account-btn">Create free account</button>
+    </section>
+    <footer>
+      <h1>Simple bank</h1>
+      <ul class="other">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#operations">Operations</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+      </ul>
+      <p>&copy; Copyright by <span>Simple bank</span> all rights reserved</p>
+    </footer>
+  </body>
+</html>
