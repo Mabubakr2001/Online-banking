@@ -1,10 +1,10 @@
 const header = document.querySelector(".app-header");
-const nav = document.querySelector(".nav");
+const goToOtherSectionsSpot = document.querySelector(".other")
 const manipulateNavBtn = document.querySelector(".manipulate-nav");
+const nav = document.querySelector(".nav");
 const topSpot = document.querySelector(".top");
 const middleSpot = document.querySelector(".middle");
 const bottomSpot = document.querySelector(".bottom");
-const goToOtherSectionsSpot = document.querySelector(".other")
 const allSections = document.querySelectorAll("section");
 const allLazyImgs = document.querySelectorAll(".feature-img");
 const allOperationsTabsSpot = document.querySelector(".operations-tabs")
@@ -12,6 +12,11 @@ const changeTestimonialBtns = document.querySelectorAll(".testimonials-btn");
 const changeTestimonialDotsSpot = document.querySelector(".dots")
 const allDots = document.querySelectorAll(".dot");
 const allTestimonials = document.querySelectorAll(".testimonial");
+const newAccountForm = document.querySelector(".new-account-form");
+const openAccountForm = document.querySelector(".open-account-form")
+const overlay = document.querySelector(".overlay");
+const createNewAccountBtns = document.querySelectorAll(".create-account-btn")
+const openAccountBtn = document.querySelector(".open-account-btn");
 
 // Show and hide the nav in phones
 function manipulateNav(navState) {
@@ -61,6 +66,66 @@ nav.addEventListener("mouseout", ({ target }) =>
   changeOpacity({ hoveredElement: target, opacityState: "show" })
 );
 // Change header opacity
+
+// manipulate forms
+function manipulateWindow(manipulateMethod, windowType){
+  if (manipulateMethod === "hide") {
+    windowType.dataset.state = "hidden";
+    overlay.dataset.state = "hidden";
+  }
+  if (manipulateMethod === "show") {
+    windowType.dataset.state = "visible";
+    overlay.dataset.state = "visible";
+  }
+}
+
+createNewAccountBtns.forEach(btn => btn.addEventListener("click", () => manipulateWindow("show", newAccountForm)))
+openAccountBtn.addEventListener("click", () => manipulateWindow("show", openAccountForm))
+overlay.addEventListener("click", () => {
+  const visibleForm = Array.from(document.querySelectorAll(".form")).find(form => form.dataset.state === "visible");
+  manipulateWindow("hide", visibleForm)
+})
+window.addEventListener("keydown", ({key}) => {
+  const visibleForm = Array.from(document.querySelectorAll(".form")).find(form => form.dataset.state === "visible");
+  if (key !== "Escape" || visibleForm == null) return
+  manipulateWindow("hide", visibleForm)
+})
+// manipulate forms
+
+
+// create new account
+export const allAccounts = []
+
+function createErrorMessageElement(errorMessage){
+  const element = document.createElement("p");
+  element.classList.add("error-message");
+  element.textContent = errorMessage;
+  document.querySelector(".submit-form-btn").insertAdjacentElement("beforebegin", element)
+  setTimeout(() => {
+    element.remove()
+  }, 1500)
+}
+
+function createNewAccount(form){
+  const inputsObject = Object.fromEntries([...new FormData(form)])
+  const newAccountValues = Object.values(inputsObject)
+  let emptyValue;
+  newAccountValues.forEach(value => {
+    if (value === "") return emptyValue = true
+  })
+  if (emptyValue) return createErrorMessageElement("Please fill out all fields!")
+  const newAccount = {...inputsObject, movements: [], interestRate: 1.5}
+  allAccounts.push(newAccount)
+  form.querySelectorAll(".input-field").forEach(input => input.value = "")
+  window.location.href = "http://127.0.0.1:8080/insideAccount.html"
+}
+
+newAccountForm.addEventListener("submit", (event) => {
+  event.preventDefault()
+  createNewAccount(newAccountForm)
+})
+// create new account
+
 
 
 // Observer for the header
@@ -243,3 +308,17 @@ changeTestimonialDotsSpot.addEventListener("click", ({target}) => {
   })
 })
 // change the testimonial
+
+function createSpinner(){
+  const spinner = document.createElement("div");
+  spinner.classList.add("loading");
+  for (let i = 0; i < 3; i++){
+    const loadingDot = document.createElement("span");
+    spinner.appendChild(loadingDot)
+  }
+  document.querySelector("body").appendChild(spinner);
+}
+
+// document.querySelector("body").innerHTML = "";
+// setTimeout(createSpinner, 500)
+// setTimeout(() => console.log("Hello"), 3000)

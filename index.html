@@ -42,36 +42,50 @@
         </div>
       </nav>
     </header>
+    <div class="overlay" data-state="hidden"></div>
+    <form class="form new-account-form" autocomplete="off" data-state="hidden">
+      <div class="input">
+        <label for="first">First name : </label>
+        <input type="text" name="firstName" id="first" class="input-field">
+      </div>
+      <div class="input">
+        <label for="last">Last name : </label>
+        <input type="text" name="lastName" id="last" class="input-field">
+      </div>
+      <div class="input">
+        <label for="user">User name : </label>
+        <input type="text" name="userName" id="user" class="input-field">
+      </div>
+      <div class="input">
+        <label for="password">Password : </label>
+        <input type="password" name="password" id="password" class="input-field">
+      </div>
+      <div class="input">
+        <label for="currency">Currency : </label>
+        <input type="text" name="currency" id="currency" class="input-field" placeholder="Example: USD">
+      </div>
+      <div class="input">
+        <label for="locale">Locale : </label>
+        <input type="text" name="locale" id="locale" class="input-field" placeholder="Example: en-US">
+      </div>
+      <input type="submit" value="Enter Account" class="submit-form-btn submit-createAccount-btn">
+    </form>
+    <form class="form open-account-form" autocomplete="off" data-state="hidden">
+      <div class="input">
+        <label for="user">User name : </label>
+        <input type="text" name="user-name" id="user" class="input-field">
+      </div>
+      <div class="input">
+        <label for="password">Password : </label>
+        <input type="password" name="password" id="password" class="input-field">
+      </div>
+      <input type="submit" value="Enter Account" class="submit-form-btn submit-openAccount-btn">
+    </form>
     <section class="intro">
       <img src="./imgs/credit-card.png" alt="" />
       <h1>Your simple onling banking</h1>
       <h2>Get loan for your business growth or startup...</h2>
       <button class="btn-start create-account-btn">Get Started</button>
-      <button class="learn-more-btn">
-        Learn more
-        <svg
-          width="20px"
-          height="20px"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M12 20L12 4"
-            stroke="#263fa0"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M6 14L11.9375 19.9375V19.9375C11.972 19.972 12.028 19.972 12.0625 19.9375V19.9375L18 14"
-            stroke="#263fa0"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </button>
     </section>
     <section class="features-section" data-state="hidden">
       <div class="section-intro">

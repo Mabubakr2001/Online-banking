@@ -22,6 +22,8 @@ html {
 
 body {
   overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
 }
 
 a {
@@ -35,6 +37,11 @@ button {
 
 svg {
   pointer-events: none;
+}
+
+::placeholder{
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
 }
 
 section {
@@ -83,7 +90,7 @@ section[data-state="visible"] {
 .nav {
   display: flex;
   width: 66%;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .other {
@@ -91,6 +98,7 @@ section[data-state="visible"] {
   display: flex;
   align-items: center;
   justify-self: center;
+  margin-right: auto;
 }
 
 .other li:not(:last-child) {
@@ -128,10 +136,7 @@ section[data-state="visible"] {
 }
 
 .login-btn {
-  width: 170px;
-  height: 40px;
-  padding-bottom: 2px;
-  display: inline-block;
+  padding: 10px 15px;
   border-radius: 5px;
   font-size: 1rem;
   color: var(--mainColor);
@@ -298,13 +303,14 @@ section[data-state="visible"] {
   font-size: 7vmin;
   text-align: center;
   color: var(--mainColor2);
+  margin-bottom: 10px;
 }
 
 .intro h2 {
   text-align: center;
   color: var(--mainColor2);
   font-size: 5vmin;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 .btn-start {
@@ -662,11 +668,11 @@ path {
 }
 
 .previous-testimonial-btn {
-  left: 261px;
+  left: 18.3%;
 }
 
 .next-testimonial-btn {
-  right: 261px;
+  right: 18.3%;
 }
 
 .dots {
@@ -723,6 +729,50 @@ path {
   border-color: var(--mainColor2);
 }
 
+.loading{
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loading span{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: var(--mainColor2);
+  animation-name: loading;
+  animation-duration: 0.7s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.loading span:not(:last-child){
+  margin-right: 20px;
+}
+
+.loading span:nth-child(2){
+  animation-delay: 0.3s;
+}
+
+.loading span:nth-child(3){
+  animation-delay: 0.6s;
+}
+
+
+@keyframes loading{
+  100%{
+    opacity: 0.2;
+    transform: translateY(-20px);
+  }
+}
+
+
 footer {
   padding: 70px;
   display: flex;
@@ -747,4 +797,102 @@ footer .other li a::after {
 
 footer p span {
   font-weight: 400;
+}
+
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--mainColor);
+  transition: 0.7s;
+  z-index: 100;
+  transition-delay: 0.1s;
+}
+
+.overlay[data-state="hidden"]{
+  opacity: 0;
+  pointer-events: none;
+}
+
+.overlay[data-state="visible"]{
+  opacity: 0.5;
+  pointer-events: all;
+}
+
+.form{
+  background-color: var(--mainColor2);
+  width: 500px;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  transition: 0.5s;
+  z-index: 100;
+}
+
+.error-message{
+  color: red;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.form[data-state="hidden"]{
+  top: 60%;
+  left: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.form[data-state="visible"]{
+  top: 50%;
+  left: 50%;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.form .input{
+  margin-bottom: 15px;
+}
+
+.form label {
+  display: inline-block;
+  width: 22%;
+  font-size: 1rem;
+  color: var(--mainColor);
+}
+
+.form .input-field{
+  border: none;
+  outline: none;
+  width: 77%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  caret-color: var(--mainColor2);
+  color: var(--mainColor2);
+}
+
+.submit-form-btn{
+  width: fit-content;
+  margin: 0 auto;
+  padding: 10px 15px;
+  border: 2px solid var(--mainColor);
+  border-radius: 5px;
+  background-color: transparent;
+  color: var(--mainColor);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--mainTransition);
+}
+
+.submit-form-btn:hover{
+  background-color: var(--mainColor);
+  border-color: var(--mainColor2);
+  color: var(--mainColor2);
 }
