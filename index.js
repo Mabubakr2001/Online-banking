@@ -212,11 +212,11 @@ function createNewAccount(form) {
   const newAccount = { ...inputsObject, movements: [], interestRate: 1.5 };
   allAccounts.push(newAccount);
   form.querySelectorAll(".input-field").forEach((input) => (input.value = ""));
-  document.querySelector("body").innerHTML = "";
-  createSpinner();
-  setTimeout(() => {
-    window.location.href = "insideAccount.html";
-  }, 4000);
+  // document.querySelector("body").innerHTML = "";
+  // createSpinner();
+  // setTimeout(() => {
+  //   window.location.href = "insideAccount.html";
+  // }, 4000);
 }
 
 function createSpinner() {
