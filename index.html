@@ -11,7 +11,7 @@
     <meta name="keywords" content="HTML, CSS, JavaScript" />
     <meta name="author" content="Mohamed Aboubakr" />
     <link href="style.css" rel="stylesheet" />
-    <script type="module" defer src="main.js"></script>
+    <script type="module" defer src="index.js"></script>
     <title>Online-banking</title>
   </head>
   <body>
@@ -46,40 +46,70 @@
     <form class="form new-account-form" autocomplete="off" data-state="hidden">
       <div class="input">
         <label for="first">First name : </label>
-        <input type="text" name="firstName" id="first" class="input-field">
+        <input type="text" name="firstName" id="first" class="input-field" />
       </div>
       <div class="input">
         <label for="last">Last name : </label>
-        <input type="text" name="lastName" id="last" class="input-field">
+        <input type="text" name="lastName" id="last" class="input-field" />
       </div>
       <div class="input">
-        <label for="user">User name : </label>
-        <input type="text" name="userName" id="user" class="input-field">
+        <label for="user1">User name : </label>
+        <input type="text" name="userName" id="user1" class="input-field" />
       </div>
       <div class="input">
-        <label for="password">Password : </label>
-        <input type="password" name="password" id="password" class="input-field">
+        <label for="password1">Password : </label>
+        <input
+          type="password"
+          name="password"
+          id="password1"
+          class="input-field"
+        />
       </div>
       <div class="input">
         <label for="currency">Currency : </label>
-        <input type="text" name="currency" id="currency" class="input-field" placeholder="Example: USD">
+        <input
+          type="text"
+          name="currency"
+          id="currency"
+          class="input-field"
+          placeholder="Example: USD"
+        />
       </div>
       <div class="input">
         <label for="locale">Locale : </label>
-        <input type="text" name="locale" id="locale" class="input-field" placeholder="Example: en-US">
+        <input
+          type="text"
+          name="locale"
+          id="locale"
+          class="input-field"
+          placeholder="Example: en-US"
+        />
       </div>
-      <input type="submit" value="Enter Account" class="submit-form-btn submit-createAccount-btn">
+      <input
+        type="submit"
+        value="Enter Account"
+        class="submit-form-btn submit-createAccount-btn"
+      />
     </form>
     <form class="form open-account-form" autocomplete="off" data-state="hidden">
       <div class="input">
-        <label for="user">User name : </label>
-        <input type="text" name="user-name" id="user" class="input-field">
+        <label for="user2">User name : </label>
+        <input type="text" name="user-name" id="user2" class="input-field" />
       </div>
       <div class="input">
-        <label for="password">Password : </label>
-        <input type="password" name="password" id="password" class="input-field">
+        <label for="password2">Password : </label>
+        <input
+          type="password"
+          name="password"
+          id="password2"
+          class="input-field"
+        />
       </div>
-      <input type="submit" value="Enter Account" class="submit-form-btn submit-openAccount-btn">
+      <input
+        type="submit"
+        value="Enter Account"
+        class="submit-form-btn submit-openAccount-btn"
+      />
     </form>
     <section class="intro">
       <img src="./imgs/credit-card.png" alt="" />
@@ -238,56 +268,56 @@
           can trust us
         </p>
       </div>
-              <button class="testimonials-btn previous-testimonial-btn">
-          <svg
-            style="margin-top: 3px"
-            width="35px"
-            height="35px"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M4 12L20 12"
-              stroke="#263fa0"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M10 6L4.0625 11.9375V11.9375C4.02798 11.972 4.02798 12.028 4.0625 12.0625V12.0625L10 18"
-              stroke="#263fa0"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-        <button class="testimonials-btn next-testimonial-btn">
-          <svg
-            style="margin-top: 3px"
-            width="35px"
-            height="35px"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M20 12L4 12"
-              stroke="#263fa0"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M14 18L19.9375 12.0625V12.0625C19.972 12.028 19.972 11.972 19.9375 11.9375V11.9375L14 6"
-              stroke="#263fa0"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
+      <button class="testimonials-btn previous-testimonial-btn">
+        <svg
+          style="margin-top: 3px"
+          width="35px"
+          height="35px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 12L20 12"
+            stroke="#263fa0"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M10 6L4.0625 11.9375V11.9375C4.02798 11.972 4.02798 12.028 4.0625 12.0625V12.0625L10 18"
+            stroke="#263fa0"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <button class="testimonials-btn next-testimonial-btn">
+        <svg
+          style="margin-top: 3px"
+          width="35px"
+          height="35px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M20 12L4 12"
+            stroke="#263fa0"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M14 18L19.9375 12.0625V12.0625C19.972 12.028 19.972 11.972 19.9375 11.9375V11.9375L14 6"
+            stroke="#263fa0"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
       <div class="all-testimonials container">
         <div class="dots">
           <div class="dot" data-state="active"></div>

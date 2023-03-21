@@ -1,3 +1,5 @@
+import { allAccounts } from "./insideAccount.js";
+
 const header = document.querySelector(".app-header");
 const goToOtherSectionsSpot = document.querySelector(".other");
 const nav = document.querySelector(".nav");
@@ -20,7 +22,7 @@ const openAccountBtn = document.querySelector(".open-account-btn");
 
 let testimonialNum = 0;
 const testimonialsNum = allTestimonials.length;
-const allAccounts = [];
+// const allAccounts = [];
 
 function changeOpacity({ hoveredElement, opacityState }) {
   if (!hoveredElement.classList.contains("different")) return;
@@ -210,12 +212,11 @@ function createNewAccount(form) {
   const newAccount = { ...inputsObject, movements: [], interestRate: 1.5 };
   allAccounts.push(newAccount);
   form.querySelectorAll(".input-field").forEach((input) => (input.value = ""));
-  // document.querySelector("body").innerHTML = "";
-  console.log(allAccounts);
-  // createSpinner();
-  // setTimeout(() => {
-  //   window.location.href = "http://127.0.0.1:8080/insideAccount.html";
-  // }, 3000);
+  document.querySelector("body").innerHTML = "";
+  createSpinner();
+  setTimeout(() => {
+    window.location.href = "insideAccount.html";
+  }, 4000);
 }
 
 function createSpinner() {
