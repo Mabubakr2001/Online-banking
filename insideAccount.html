@@ -11,9 +11,347 @@
     <meta name="keywords" content="HTML, CSS, JavaScript" />
     <meta name="author" content="Mohamed Aboubakr" />
     <link href="style.css" rel="stylesheet" />
-    <script type="module" defer src="main.js"></script>
+    <script type="module" defer src="insideAccount.js"></script>
     <title>Online-banking</title>
   </head>
-  <body>
-
+  <body style="background-color: #ddd">
+    <h1 class="greet-user">Hello, <span class="user-name">Mohamed</span></h1>
+    <span class="exit-account">Exit account</span>
+    <div class="account-details">
+      <div class="balance-info">
+        <div class="heading-date">
+          <h3>Current balance</h3>
+          <p class="current-date">
+            As of <span class="date">Monday, Mar 21, 2023</span>
+          </p>
+        </div>
+        <h2 class="current-balance">$18,360.00</h2>
+      </div>
+      <div class="movements">
+        <div class="movement">
+          <div class="movement-type" data-type="deposit">4 Deposit</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="withdrawal">3 Withdrawal</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="transfer">2 Transfer</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+        <div class="movement">
+          <div class="movement-type" data-type="loan">1 Loan</div>
+          <div class="movement-date">3/21/2023</div>
+          <div class="movement-value">$5,000</div>
+        </div>
+      </div>
+      <div class="summary">
+        <p class="summary-info">
+          In :
+          <span class="summary-info-details" data-summary="in">$50214</span>
+        </p>
+        <p class="summary-info">
+          Out :
+          <span class="summary-info-details" data-summary="out">-$2352</span>
+        </p>
+        <p class="summary-info">
+          Interest :
+          <span class="summary-info-details" data-summary="interest">$214</span>
+        </p>
+      </div>
+      <div class="make-operation" data-operation-type="deposit">
+        <h3 class="operation-heading">Make deposit</h3>
+        <form class="operation-form">
+          <div class="operation-input">
+            <input
+              type="number"
+              id="amount"
+              min="0"
+              class="operation-input-field"
+            />
+            <label for="amount">Amount</label>
+          </div>
+          <button class="submit-operation-btn">
+            <svg
+              style="margin-top: 3px"
+              width="30px"
+              height="30px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20 12L4 12"
+                stroke="#263fa0"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M14 18L19.9375 12.0625V12.0625C19.972 12.028 19.972 11.972 19.9375 11.9375V11.9375L14 6"
+                stroke="#263fa0"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </form>
+      </div>
+      <div class="make-operation" data-operation-type="withdrawal">
+        <h3 class="operation-heading">Make withdrawal</h3>
+        <form class="operation-form">
+          <div class="operation-input">
+            <input
+              type="number"
+              id="amount"
+              min="0"
+              class="operation-input-field"
+            />
+            <label for="amount">Amount</label>
+          </div>
+          <button class="submit-operation-btn">
+            <svg
+              style="margin-top: 3px"
+              width="30px"
+              height="30px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20 12L4 12"
+                stroke="#263fa0"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M14 18L19.9375 12.0625V12.0625C19.972 12.028 19.972 11.972 19.9375 11.9375V11.9375L14 6"
+                stroke="#263fa0"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </form>
+      </div>
+      <div class="make-operation" data-operation-type="loan">
+        <h3 class="operation-heading">Request a loan</h3>
+        <form class="operation-form">
+          <div class="operation-input">
+            <input
+              type="number"
+              id="amount"
+              min="0"
+              class="operation-input-field"
+            />
+            <label for="amount">Amount</label>
+          </div>
+          <button class="submit-operation-btn">
+            <svg
+              style="margin-top: 3px"
+              width="30px"
+              height="30px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20 12L4 12"
+                stroke="#263fa0"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M14 18L19.9375 12.0625V12.0625C19.972 12.028 19.972 11.972 19.9375 11.9375V11.9375L14 6"
+                stroke="#263fa0"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </form>
+      </div>
+      <div class="make-operation" data-operation-type="transfer">
+        <h3 class="operation-heading">Transfer money</h3>
+        <form class="operation-form">
+          <div class="operation-input">
+            <input
+              type="number"
+              id="amount"
+              min="0"
+              class="operation-input-field"
+            />
+            <label for="amount">Amount</label>
+          </div>
+          <div class="operation-input">
+            <input type="text" id="transfer-to" class="operation-input-field" />
+            <label for="transfer-to">Transfer to</label>
+          </div>
+          <button class="submit-operation-btn">
+            <svg
+              style="margin-top: 3px"
+              width="30px"
+              height="30px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20 12L4 12"
+                stroke="#263fa0"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M14 18L19.9375 12.0625V12.0625C19.972 12.028 19.972 11.972 19.9375 11.9375V11.9375L14 6"
+                stroke="#263fa0"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </form>
+      </div>
+      <div class="make-operation" data-operation-type="close">
+        <h3 class="operation-heading">Close account</h3>
+        <form class="operation-form">
+          <div class="operation-input">
+            <input
+              type="text"
+              id="confirm-user"
+              class="operation-input-field"
+            />
+            <label for="confirm-user">Confirm username</label>
+          </div>
+          <div class="operation-input">
+            <input
+              type="password"
+              id="confirm-password"
+              class="operation-input-field"
+            />
+            <label for="confirm-password">Confirm password</label>
+          </div>
+          <button class="submit-operation-btn">
+            <svg
+              style="margin-top: 3px"
+              width="30px"
+              height="30px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20 12L4 12"
+                stroke="#263fa0"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M14 18L19.9375 12.0625V12.0625C19.972 12.028 19.972 11.972 19.9375 11.9375V11.9375L14 6"
+                stroke="#263fa0"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </form>
+      </div>
+      <p class="logout-timer-message">
+        You're gonna be logged out after <span class="logout-timer">5:00</span>
+      </p>
+    </div>
   </body>
+</html>
