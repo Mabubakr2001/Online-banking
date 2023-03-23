@@ -1,5 +1,3 @@
-import { allAccounts } from "./insideAccount.js";
-
 const header = document.querySelector(".app-header");
 const goToOtherSectionsSpot = document.querySelector(".other");
 const nav = document.querySelector(".nav");
@@ -22,7 +20,7 @@ const openAccountBtn = document.querySelector(".open-account-btn");
 
 let testimonialNum = 0;
 const testimonialsNum = allTestimonials.length;
-// const allAccounts = [];
+let allAccounts = [];
 
 function changeOpacity({ hoveredElement, opacityState }) {
   if (!hoveredElement.classList.contains("different")) return;
@@ -188,13 +186,11 @@ function changeTestimonial(prevOrNext) {
   goToTestimonial(testimonialNum);
 }
 
-function createErrorMessageElement(errorMessage) {
+function createErrorMessageElement(errorMessage, elementToInsertAboveIt) {
   const element = document.createElement("p");
   element.classList.add("error-message");
   element.textContent = errorMessage;
-  document
-    .querySelector(".submit-form-btn")
-    .insertAdjacentElement("beforebegin", element);
+  elementToInsertAboveIt.insertAdjacentElement("beforebegin", element);
   setTimeout(() => {
     element.remove();
   }, 1500);
@@ -202,36 +198,84 @@ function createErrorMessageElement(errorMessage) {
 
 function createNewAccount(form) {
   const inputsObject = Object.fromEntries([...new FormData(form)]);
-  const newAccountValues = Object.values(inputsObject);
-  let emptyValue;
-  newAccountValues.forEach((value) => {
-    if (value === "") return (emptyValue = true);
-  });
-  if (emptyValue)
-    return createErrorMessageElement("Please fill out all fields!");
+  const submitBtn = document.querySelector(".submit-createAccount-btn");
+  if (Object.values(inputsObject).some((value) => value === "")) {
+    return createErrorMessageElement("Please fill out all fields!", submitBtn);
+  }
   const newAccount = { ...inputsObject, movements: [], interestRate: 1.5 };
+  if (isDuplicateAccount(newAccount))
+    return createErrorMessageElement(
+      "Sorry, this account is already exist!",
+      submitBtn
+    );
+  form.reset();
   allAccounts.push(newAccount);
-  form.querySelectorAll(".input-field").forEach((input) => (input.value = ""));
-  // document.querySelector("body").innerHTML = "";
-  // createSpinner();
-  // setTimeout(() => {
-  //   window.location.href = "insideAccount.html";
-  // }, 4000);
+  localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
+  localStorage.setItem("neededAccount", JSON.stringify(newAccount));
+  createSpinnerAndRedirect();
+}
+
+function isDuplicateAccount(newAccount) {
+  return allAccounts.find((account) => {
+    return (
+      account.firstName === newAccount.firstName &&
+      account.lastName === newAccount.lastName &&
+      account.userName === newAccount.userName &&
+      account.password === newAccount.password &&
+      account.currency === newAccount.currency &&
+      account.locale === newAccount.locale
+    );
+  });
+}
+
+function createSpinnerAndRedirect() {
+  document.querySelector("body").innerHTML = "";
+  createSpinner();
+  setTimeout(() => {
+    window.location.href = "insideAccount.html";
+  }, 4000);
 }
 
 function createSpinner() {
   const spinner = document.createElement("div");
   spinner.classList.add("loading");
-  for (let i = 0; i < 3; i++) {
+  Array.from({ length: 3 }, () => {
     const loadingDot = document.createElement("span");
     spinner.appendChild(loadingDot);
+  });
+  document.body.appendChild(spinner);
+}
+
+function openAccount(form) {
+  const { userName, password } = Object.fromEntries(new FormData(form));
+  const submitBtn = document.querySelector(".submit-openAccount-btn");
+
+  if (!userName || !password) {
+    return createErrorMessageElement("Please fill out all fields!", submitBtn);
   }
-  document.querySelector("body").appendChild(spinner);
+
+  const targetAccount = allAccounts?.find(
+    ({ userName: existingUserName, password: existingPassword }) =>
+      existingUserName === userName && existingPassword === password
+  );
+
+  if (!targetAccount) {
+    return createErrorMessageElement(
+      "Sorry, this account doesn't exist!",
+      submitBtn
+    );
+  }
+
+  localStorage.setItem("neededAccount", JSON.stringify(targetAccount));
+  createSpinnerAndRedirect();
 }
 
 function makeTheWebsiteRunning() {
   createIntersectionObserverForIntroSection();
   initTheTestimonials();
+  window.addEventListener("load", () => {
+    allAccounts = JSON.parse(localStorage.getItem("allAccounts"));
+  });
 
   allSections.forEach((section) => {
     if (section.classList.contains("intro")) return;
@@ -263,18 +307,17 @@ function makeTheWebsiteRunning() {
   );
 
   overlay.addEventListener("click", () => {
-    const visibleForm = Array.from(document.querySelectorAll(".form")).find(
-      (form) => form.dataset.state === "visible"
-    );
+    const visibleForm = document.querySelector(".form[data-state=visible]");
+    visibleForm.reset();
     manipulateWindow("hide", visibleForm);
   });
 
   window.addEventListener("keydown", ({ key }) => {
-    const visibleForm = Array.from(document.querySelectorAll(".form")).find(
-      (form) => form.dataset.state === "visible"
-    );
-    if (key !== "Escape" || visibleForm == null) return;
-    manipulateWindow("hide", visibleForm);
+    const visibleForm = document.querySelector(".form[data-state=visible]");
+    if (key === "Escape" && visibleForm) {
+      visibleForm.reset();
+      manipulateWindow("hide", visibleForm);
+    }
   });
 
   goToOtherSectionsSpot.addEventListener("click", ({ target }) => {
@@ -299,19 +342,30 @@ function makeTheWebsiteRunning() {
 
   newAccountForm.addEventListener("submit", (event) => {
     event.preventDefault();
+
+    const allAccountsInLocalStorage =
+      JSON.parse(localStorage.getItem("allAccounts")) ?? [];
+
+    allAccounts = allAccountsInLocalStorage;
+
     createNewAccount(newAccountForm);
+
+    sessionStorage.setItem("formSubmitted", "true");
+  });
+
+  openAccountForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    openAccount(openAccountForm);
+    sessionStorage.setItem("formSubmitted", "true");
   });
 
   changeTestimonialDotsSpot.addEventListener("click", ({ target }) => {
     if (!target.classList.contains("dot")) return;
+    const testimonialIndex = Array.from(allDots).indexOf(target);
+    goToTestimonial(testimonialIndex);
+    testimonialNum = testimonialIndex;
     allDots.forEach((dot, index) => {
-      if (dot === target) {
-        goToTestimonial(index);
-        testimonialNum = index;
-        dot.dataset.state = "active";
-        return;
-      }
-      dot.dataset.state = "disabled";
+      dot.dataset.state = index === testimonialIndex ? "active" : "disabled";
     });
   });
 }
