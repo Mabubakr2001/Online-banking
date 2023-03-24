@@ -16,7 +16,7 @@
   </head>
   <body style="background-color: #ddd">
     <h1 class="greet-user bg-gray-100">
-      Welcome to Simple bank, <span class="user-name"></span>
+      Welcome to Simple bank, <span class="name-of-user"></span>
     </h1>
     <a class="exit-account" href="index.html">Exit account</a>
     <div class="account-details">
@@ -27,11 +27,11 @@
             As of <span class="date">Monday, Mar 21, 2023</span>
           </p>
         </div>
-        <h2 class="current-balance">$0</h2>
+        <h2 class="current-balance"></h2>
       </div>
       <div class="movements">
         <!-- <div class="movement">
-          <div class="movement-type" data-type="deposit">4 Deposit</div>
+          <div class="movement-type" data-operation="deposit">4 Deposit</div>
           <div class="movement-date">3/21/2023</div>
           <div class="movement-value">$5,000</div>
         </div> -->
@@ -39,184 +39,98 @@
       <div class="summary">
         <p class="summary-info">
           In :
-          <span class="summary-info-details" data-summary="in">$0</span>
+          <span class="summary-info-details" data-summary="in"></span>
         </p>
         <p class="summary-info">
           Out :
-          <span class="summary-info-details" data-summary="out">-$0</span>
+          <span class="summary-info-details" data-summary="out"></span>
         </p>
         <p class="summary-info">
           Interest :
-          <span class="summary-info-details" data-summary="interest">$0</span>
+          <span class="summary-info-details" data-summary="interest"></span>
         </p>
       </div>
-      <div class="make-operation" data-operation-type="deposit">
+      <div class="make-operation">
         <h3 class="operation-heading">Make deposit</h3>
-        <form class="operation-form">
+        <form class="operation-form" data-operation="deposit">
           <div class="operation-input">
             <input
               type="number"
               id="amount1"
+              name="amount"
               min="0"
               class="operation-input-field"
             />
             <label for="amount1">Amount</label>
           </div>
-          <button class="submit-operation-btn">
-            <svg
-              style="margin-top: 3px"
-              width="30px"
-              height="30px"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20 12L4 12"
-                stroke="#263fa0"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M14 18L19.9375 12.0625V12.0625C19.972 12.028 19.972 11.972 19.9375 11.9375V11.9375L14 6"
-                stroke="#263fa0"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
+          <input type="submit" value="OK" class="submit-operation-btn" />
         </form>
       </div>
-      <div class="make-operation" data-operation-type="withdrawal">
+      <div class="make-operation">
         <h3 class="operation-heading">Make withdrawal</h3>
-        <form class="operation-form">
+        <form class="operation-form" data-operation="withdrawal">
           <div class="operation-input">
             <input
               type="number"
               id="amount2"
+              name="amount"
               min="0"
               class="operation-input-field"
             />
             <label for="amount2">Amount</label>
           </div>
-          <button class="submit-operation-btn">
-            <svg
-              style="margin-top: 3px"
-              width="30px"
-              height="30px"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20 12L4 12"
-                stroke="#263fa0"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M14 18L19.9375 12.0625V12.0625C19.972 12.028 19.972 11.972 19.9375 11.9375V11.9375L14 6"
-                stroke="#263fa0"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
+          <input type="submit" value="OK" class="submit-operation-btn" />
         </form>
       </div>
-      <div class="make-operation" data-operation-type="loan">
+      <div class="make-operation">
         <h3 class="operation-heading">Request a loan</h3>
-        <form class="operation-form">
+        <form class="operation-form" data-operation="loan">
           <div class="operation-input">
             <input
               type="number"
               id="amount3"
               min="0"
+              name="amount"
               class="operation-input-field"
             />
             <label for="amount3">Amount</label>
           </div>
-          <button class="submit-operation-btn">
-            <svg
-              style="margin-top: 3px"
-              width="30px"
-              height="30px"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20 12L4 12"
-                stroke="#263fa0"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M14 18L19.9375 12.0625V12.0625C19.972 12.028 19.972 11.972 19.9375 11.9375V11.9375L14 6"
-                stroke="#263fa0"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
+          <input type="submit" value="OK" class="submit-operation-btn" />
         </form>
       </div>
-      <div class="make-operation" data-operation-type="transfer">
+      <div class="make-operation">
         <h3 class="operation-heading">Transfer money</h3>
-        <form class="operation-form">
+        <form class="operation-form" data-operation="transfer">
           <div class="operation-input">
             <input
               type="number"
               id="amount4"
+              name="amount"
               min="0"
               class="operation-input-field"
             />
             <label for="amount4">Amount</label>
           </div>
           <div class="operation-input">
-            <input type="text" id="transfer-to" class="operation-input-field" />
+            <input
+              type="text"
+              name="sendTo"
+              id="transfer-to"
+              class="operation-input-field"
+            />
             <label for="transfer-to">Transfer to</label>
           </div>
-          <button class="submit-operation-btn">
-            <svg
-              style="margin-top: 3px"
-              width="30px"
-              height="30px"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20 12L4 12"
-                stroke="#263fa0"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M14 18L19.9375 12.0625V12.0625C19.972 12.028 19.972 11.972 19.9375 11.9375V11.9375L14 6"
-                stroke="#263fa0"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
+          <input type="submit" value="OK" class="submit-operation-btn" />
         </form>
       </div>
-      <div class="make-operation" data-operation-type="close">
+      <div class="make-operation">
         <h3 class="operation-heading">Close account</h3>
-        <form class="operation-form">
+        <form class="operation-form" data-operation="close">
           <div class="operation-input">
             <input
               type="text"
               id="confirm-user"
+              name="userName"
               class="operation-input-field"
             />
             <label for="confirm-user">Confirm username</label>
@@ -225,39 +139,16 @@
             <input
               type="password"
               id="confirm-password"
+              name="password"
               class="operation-input-field"
             />
             <label for="confirm-password">Confirm password</label>
           </div>
-          <button class="submit-operation-btn">
-            <svg
-              style="margin-top: 3px"
-              width="30px"
-              height="30px"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20 12L4 12"
-                stroke="#263fa0"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M14 18L19.9375 12.0625V12.0625C19.972 12.028 19.972 11.972 19.9375 11.9375V11.9375L14 6"
-                stroke="#263fa0"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
+          <input type="submit" value="OK" class="submit-operation-btn" />
         </form>
       </div>
       <p class="logout-timer-message">
-        You're gonna be logged out after <span class="logout-timer">5:00</span>
+        You're gonna be logged out after <span class="logout-timer">05:00</span>
       </p>
     </div>
   </body>

@@ -983,16 +983,16 @@ footer p span {
   font-size: 0.9rem;
 }
 
-.movement-type[data-type="deposit"] {
+.movement-type[data-operation="deposit"] {
   background-color: green;
 }
-.movement-type[data-type="withdrawal"] {
+.movement-type[data-operation="withdrawal"] {
   background-color: orange;
 }
-.movement-type[data-type="transfer"] {
+.movement-type[data-operation="transfer"] {
   background-color: var(--mainColor2);
 }
-.movement-type[data-type="loan"] {
+.movement-type[data-operation="loan"] {
   background-color: #0d1117;
 }
 
@@ -1044,19 +1044,19 @@ footer p span {
   font-weight: 700;
 }
 
-.make-operation[data-operation-type="deposit"] {
+.make-operation:has(.operation-form[data-operation="deposit"]) {
   background-color: green;
 }
-.make-operation[data-operation-type="withdrawal"] {
+.make-operation:has(.operation-form[data-operation="withdrawal"]) {
   background-color: orange;
 }
-.make-operation[data-operation-type="transfer"] {
+.make-operation:has(.operation-form[data-operation="transfer"]) {
   background-color: var(--mainColor2);
 }
-.make-operation[data-operation-type="loan"] {
+.make-operation:has(.operation-form[data-operation="loan"]) {
   background-color: #0d1117;
 }
-.make-operation[data-operation-type="close"] {
+.make-operation:has(.operation-form[data-operation="close"]) {
   background-color: red;
 }
 
@@ -1071,14 +1071,14 @@ footer p span {
   align-items: center;
 }
 
-.make-operation[data-operation-type="deposit"] .operation-form,
-.make-operation[data-operation-type="withdrawal"] .operation-form,
-.make-operation[data-operation-type="loan"] .operation-form {
+.make-operation .operation-form[data-operation="deposit"],
+.make-operation .operation-form[data-operation="withdrawal"],
+.make-operation .operation-form[data-operation="loan"] {
   justify-content: center;
 }
 
-.make-operation[data-operation-type="transfer"] .operation-form,
-.make-operation[data-operation-type="close"] .operation-form {
+.make-operation .operation-form[data-operation="transfer"],
+.make-operation .operation-form[data-operation="close"] {
   justify-content: space-around;
 }
 
@@ -1103,21 +1103,21 @@ footer p span {
   background-color: #ffffff6b;
 }
 
-.make-operation[data-operation-type="deposit"] .operation-input,
-.make-operation[data-operation-type="withdrawal"] .operation-input,
-.make-operation[data-operation-type="loan"] .operation-input {
+.make-operation .operation-form[data-operation="deposit"] .operation-input,
+.make-operation .operation-form[data-operation="withdrawal"] .operation-input,
+.make-operation .operation-form[data-operation="loan"] .operation-input {
   margin-right: 30px;
 }
 
 .submit-operation-btn {
-  height: fit-content;
-  width: fit-content;
-  padding: 0 15px;
+  padding: 5px 15px;
+  font-size: 17px;
   border-radius: 5px;
   background-color: transparent;
   border: 2px solid var(--mainColor);
   cursor: pointer;
   transition: var(--mainTransition);
+  color: var(--mainColor);
 }
 .submit-operation-btn path {
   stroke: var(--mainColor);
@@ -1127,44 +1127,27 @@ footer p span {
   background-color: var(--mainColor);
 }
 
-.make-operation[data-operation-type="deposit"] .submit-operation-btn:hover {
+.operation-form[data-operation="deposit"] .submit-operation-btn:hover {
   border-color: green;
+  color: green;
 }
 
-.make-operation[data-operation-type="deposit"]
-  .submit-operation-btn:hover
-  path {
-  stroke: green;
-}
-.make-operation[data-operation-type="withdrawal"] .submit-operation-btn:hover {
+.operation-form[data-operation="withdrawal"] .submit-operation-btn:hover {
   border-color: orange;
+  color: orange;
 }
 
-.make-operation[data-operation-type="withdrawal"]
-  .submit-operation-btn:hover
-  path {
-  stroke: orange;
-}
-.make-operation[data-operation-type="transfer"] .submit-operation-btn:hover {
+.operation-form[data-operation="transfer"] .submit-operation-btn:hover {
   border-color: var(--mainColor2);
+  color: var(--mainColor2);
 }
 
-.make-operation[data-operation-type="transfer"]
-  .submit-operation-btn:hover
-  path {
-  stroke: var(--mainColor2);
-}
-.make-operation[data-operation-type="loan"] .submit-operation-btn:hover {
+.operation-form[data-operation="loan"] .submit-operation-btn:hover {
   border-color: #0d1117;
+  color: #0d1117;
 }
 
-.make-operation[data-operation-type="loan"] .submit-operation-btn:hover path {
-  stroke: #0d1117;
-}
-.make-operation[data-operation-type="close"] .submit-operation-btn:hover {
+.operation-form[data-operation="close"] .submit-operation-btn:hover {
   border-color: red;
-}
-
-.make-operation[data-operation-type="close"] .submit-operation-btn:hover path {
-  stroke: red;
+  color: red;
 }

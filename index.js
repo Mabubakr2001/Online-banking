@@ -123,7 +123,7 @@ function showImg(entriesArr, observer) {
     observer.unobserve(targetImg);
     setTimeout(() => {
       targetImg.dataset.state = "normal";
-    }, 300);
+    }, 100);
   });
 }
 
@@ -212,6 +212,7 @@ function createNewAccount(form) {
   allAccounts.push(newAccount);
   localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
   localStorage.setItem("neededAccount", JSON.stringify(newAccount));
+  sessionStorage.setItem("formSubmitted", "true");
   createSpinnerAndRedirect();
 }
 
@@ -267,6 +268,7 @@ function openAccount(form) {
   }
 
   localStorage.setItem("neededAccount", JSON.stringify(targetAccount));
+  sessionStorage.setItem("formSubmitted", "true");
   createSpinnerAndRedirect();
 }
 
@@ -349,14 +351,11 @@ function makeTheWebsiteRunning() {
     allAccounts = allAccountsInLocalStorage;
 
     createNewAccount(newAccountForm);
-
-    sessionStorage.setItem("formSubmitted", "true");
   });
 
   openAccountForm.addEventListener("submit", (event) => {
     event.preventDefault();
     openAccount(openAccountForm);
-    sessionStorage.setItem("formSubmitted", "true");
   });
 
   changeTestimonialDotsSpot.addEventListener("click", ({ target }) => {

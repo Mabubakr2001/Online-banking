@@ -1,1 +1,2 @@
-1- Change the opacity of the header
+1- Calculate and display the current balance
+2- Display the current date
