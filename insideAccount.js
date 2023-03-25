@@ -158,130 +158,113 @@ function createMovementElement({ movementType, movementDate, movementAmount }) {
 }
 
 function checkMovement(movementType, movementObject, movementForm) {
-  if (movementType === "deposit") {
-    createMovementElement({
-      movementType,
-      movementDate: getRelativeTime(new Date(), targetAccount.locale),
-      movementAmount: getFormattedAmount({
-        currency: targetAccount.currency,
-        locale: targetAccount.locale,
-        amount: movementObject.amount,
-      }),
-    });
-    targetAccount.movements.push({
-      type: movementType,
-      date: getRelativeTime(new Date(), targetAccount.locale),
-      amount: +movementObject.amount,
-    });
-    calculateDisplayCurrentBalance(targetAccount);
-    calculateDisplaySummary(targetAccount);
-    localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
-    movementForm.reset();
-    clearInterval(myInterval);
-    startLogoutTimer();
-  }
-  if (movementType === "withdrawal") {
-    if (
-      movementObject.amount > targetAccount.balance ||
-      movementObject.amount == 0
-    )
-      return;
-    createMovementElement({
-      movementType,
-      movementDate: getRelativeTime(new Date(), targetAccount.locale),
-      movementAmount: getFormattedAmount({
-        currency: targetAccount.currency,
-        locale: targetAccount.locale,
-        amount: movementObject.amount,
-      }),
-    });
-    targetAccount.movements.push({
-      type: movementType,
-      date: getRelativeTime(new Date(), targetAccount.locale),
-      amount: -movementObject.amount,
-    });
-    calculateDisplayCurrentBalance(targetAccount);
-    calculateDisplaySummary(targetAccount);
-    localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
-    movementForm.reset();
-    clearInterval(myInterval);
-    startLogoutTimer();
-  }
-  if (movementType === "loan") {
-    if (targetAccount.balance <= movementObject.amount * 0.1) return;
-    setTimeout(() => {
+  const { amount, sendTo, userName, password } = movementObject;
+  const { locale, currency } = targetAccount;
+  const { movements } = targetAccount;
+
+  switch (movementType) {
+    case "deposit":
       createMovementElement({
         movementType,
-        movementDate: getRelativeTime(new Date(), targetAccount.locale),
-        movementAmount: getFormattedAmount({
-          currency: targetAccount.currency,
-          locale: targetAccount.locale,
-          amount: movementObject.amount,
-        }),
+        movementDate: getRelativeTime(new Date(), locale),
+        movementAmount: getFormattedAmount({ currency, locale, amount }),
       });
-      targetAccount.movements.push({
+      movements.push({
         type: movementType,
-        date: getRelativeTime(new Date(), targetAccount.locale),
-        amount: +movementObject.amount,
+        date: getRelativeTime(new Date(), locale),
+        amount: +amount,
       });
-      calculateDisplayCurrentBalance(targetAccount);
-      calculateDisplaySummary(targetAccount);
+      break;
+
+    case "withdrawal":
+      if (amount > targetAccount.balance || amount === 0) {
+        return;
+      }
+      createMovementElement({
+        movementType,
+        movementDate: getRelativeTime(new Date(), locale),
+        movementAmount: getFormattedAmount({ currency, locale, amount }),
+      });
+      movements.push({
+        type: movementType,
+        date: getRelativeTime(new Date(), locale),
+        amount: -amount,
+      });
+      break;
+
+    case "loan":
+      if (targetAccount.balance <= amount * 0.1) {
+        return;
+      }
+      setTimeout(() => {
+        createMovementElement({
+          movementType,
+          movementDate: getRelativeTime(new Date(), locale),
+          movementAmount: getFormattedAmount({ currency, locale, amount }),
+        });
+        movements.push({
+          type: movementType,
+          date: getRelativeTime(new Date(), locale),
+          amount: +amount,
+        });
+      }, 2000);
+      break;
+
+    case "transfer":
+      const receiverAccount = allAccounts.find(
+        (account) => account.userName === sendTo
+      );
+      if (!receiverAccount) {
+        return;
+      }
+      createMovementElement({
+        movementType,
+        movementDate: getRelativeTime(new Date(), locale),
+        movementAmount: getFormattedAmount({ currency, locale, amount }),
+      });
+      receiverAccount.movements.push({
+        type: movementType,
+        date: getRelativeTime(new Date(), locale),
+        amount: +amount,
+      });
+      receiverAccount.balance += +amount;
+      movements.push({
+        type: movementType,
+        date: getRelativeTime(new Date(), locale),
+        amount: -amount,
+      });
+      break;
+
+    case "close":
+      if (
+        targetAccount.userName !== userName ||
+        targetAccount.password !== password
+      ) {
+        return;
+      }
+      const accountIndexToDelete = allAccounts.findIndex(
+        (account) =>
+          account.userName === userName && account.password === password
+      );
+      if (accountIndexToDelete === -1) {
+        return;
+      }
+      allAccounts.splice(accountIndexToDelete, 1);
       localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
-      movementForm.reset();
-      clearInterval(myInterval);
-      startLogoutTimer();
-    }, 2000);
-  }
-  if (movementType === "transfer") {
-    const receiverAccount = allAccounts.find(
-      (account) => account.userName === movementObject.sendTo
-    );
-    if (receiverAccount == null) return;
-    createMovementElement({
-      movementType,
-      movementDate: getRelativeTime(new Date(), targetAccount.locale),
-      movementAmount: getFormattedAmount({
-        currency: targetAccount.currency,
-        locale: targetAccount.locale,
-        amount: movementObject.amount,
-      }),
-    });
-    receiverAccount.movements.push({
-      type: movementType,
-      date: getRelativeTime(new Date(), targetAccount.locale),
-      amount: +movementObject.amount,
-    });
-    receiverAccount.balance += +movementObject.amount;
-    targetAccount.movements.push({
-      type: movementType,
-      date: getRelativeTime(new Date(), targetAccount.locale),
-      amount: -movementObject.amount,
-    });
-    calculateDisplayCurrentBalance(targetAccount);
-    calculateDisplaySummary(targetAccount);
-    localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
-    movementForm.reset();
-    clearInterval(myInterval);
-    startLogoutTimer();
-  }
-  if (movementType === "close") {
-    if (
-      targetAccount.userName !== movementObject.userName ||
-      targetAccount.password !== movementObject.password
-    )
+      localStorage.removeItem("requestedAccount");
+      window.location.href = "index.html";
+      break;
+
+    default:
       return;
-    const accountAboutToDelete = allAccounts.findIndex(
-      (account) =>
-        account.userName === targetAccount.userName &&
-        account.password === targetAccount.password
-    );
-    if (accountAboutToDelete === -1) return;
-    allAccounts.splice(accountAboutToDelete, 1);
-    localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
-    localStorage.removeItem("requestedAccount");
-    window.location.href = "index.html";
-    movementForm.reset();
   }
+
+  calculateDisplayCurrentBalance(targetAccount);
+  calculateDisplaySummary(targetAccount);
+  localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
+  movementForm.reset();
+  clearInterval(myInterval);
+  startLogoutTimer();
 }
 
 allOperationForms.forEach((form) => {
