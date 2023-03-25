@@ -1,10 +1,20 @@
+import { currencies } from "./currencies.js";
+
 const movementsSpot = document.querySelector(".movements");
 const allOperationForms = document.querySelectorAll(".operation-form");
 const allAccounts = JSON.parse(localStorage.getItem("allAccounts"));
-const neededAccount = JSON.parse(localStorage.getItem("neededAccount"));
+const targetAccount = allAccounts?.find((account) => {
+  const requestedAccountFromLocal = JSON.parse(
+    localStorage.getItem("requestedAccount")
+  );
+  return (
+    account.userName === requestedAccountFromLocal.userName &&
+    account.password === requestedAccountFromLocal.password
+  );
+});
 const formSubmitted = sessionStorage.getItem("formSubmitted");
 if (!formSubmitted) window.location.href = "index.html";
-// sessionStorage.removeItem("formSubmitted");
+sessionStorage.removeItem("formSubmitted");
 
 let movementsCounter = 0;
 
@@ -24,8 +34,6 @@ function calculateDisplayCurrentBalance(account) {
     locale: account.locale,
     amount: account.balance,
   });
-
-  localStorage.setItem("neededAccount", JSON.stringify(account));
 }
 
 function DisplayCurrentDate(account) {
@@ -66,7 +74,7 @@ function calculateDisplaySummary(account) {
     getFormattedAmount({
       currency: account.currency,
       locale: account.locale,
-      amount: totalOutcome,
+      amount: Math.abs(totalOutcome),
     });
   document.querySelector(`[data-summary="interest"]`).textContent =
     getFormattedAmount({
@@ -111,10 +119,22 @@ function getRelativeTime(movementDate, locale) {
     : new Intl.DateTimeFormat(locale).format(movementDate); // Here I can give him an options objects
 }
 
+function getCurrencyCode(currency) {
+  const upperCurrency = currency.toUpperCase();
+  if (currencies.hasOwnProperty(upperCurrency)) {
+    return upperCurrency;
+  } else {
+    return (
+      Object.keys(currencies).find((key) => currencies[key] === currency) ||
+      currency
+    );
+  }
+}
+
 function getFormattedAmount({ currency, locale, amount }) {
   return new Intl.NumberFormat(locale, {
     style: "currency",
-    currency,
+    currency: getCurrencyCode(currency),
   }).format(amount);
 }
 
@@ -142,33 +162,40 @@ function checkMovement(movementType, movementObject) {
   if (movementType === "deposit") {
     createMovementElement({
       movementType,
-      movementDate: getRelativeTime(new Date(), neededAccount.locale),
+      movementDate: getRelativeTime(new Date(), targetAccount.locale),
       movementAmount: getFormattedAmount({
-        currency: neededAccount.currency,
-        locale: neededAccount.locale,
+        currency: targetAccount.currency,
+        locale: targetAccount.locale,
         amount: movementObject.amount,
       }),
     });
-    neededAccount.movements.push(+movementObject.amount);
-    console.log(neededAccount);
-    calculateDisplayCurrentBalance(neededAccount);
-    calculateDisplaySummary(neededAccount);
+    targetAccount.movements.push(+movementObject.amount);
+    console.log(targetAccount);
+    calculateDisplayCurrentBalance(targetAccount);
+    calculateDisplaySummary(targetAccount);
+    localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
   }
   if (movementType === "withdrawal") {
-    if (movementObject.amount > neededAccount.balance) return;
+    if (
+      movementObject.amount > targetAccount.balance ||
+      movementObject.amount == 0
+    )
+      return;
     createMovementElement({
       movementType,
-      movementDate: getRelativeTime(new Date(), neededAccount.locale),
+      movementDate: getRelativeTime(new Date(), targetAccount.locale),
       movementAmount: getFormattedAmount({
-        currency: neededAccount.currency,
-        locale: neededAccount.locale,
+        currency: targetAccount.currency,
+        locale: targetAccount.locale,
         amount: movementObject.amount,
       }),
     });
-    neededAccount.movements.push(-movementObject.amount);
-    calculateDisplayCurrentBalance(neededAccount);
-    calculateDisplaySummary(neededAccount);
-    console.log(neededAccount);
+    targetAccount.movements.push(-movementObject.amount);
+    calculateDisplayCurrentBalance(targetAccount);
+    calculateDisplaySummary(targetAccount);
+    localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
+
+    console.log(targetAccount);
   }
 }
 
@@ -183,10 +210,10 @@ allOperationForms.forEach((form) => {
 });
 
 function init() {
-  greetUser(neededAccount.firstName, neededAccount.lastName);
-  calculateDisplayCurrentBalance(neededAccount);
-  DisplayCurrentDate(neededAccount);
-  calculateDisplaySummary(neededAccount);
+  greetUser(targetAccount.firstName, targetAccount.lastName);
+  calculateDisplayCurrentBalance(targetAccount);
+  DisplayCurrentDate(targetAccount);
+  calculateDisplaySummary(targetAccount);
   // startLogoutTimer();
 }
 

@@ -1,3 +1,6 @@
+import { currencies } from "./currencies.js";
+import { locales } from "./locales.js";
+
 const header = document.querySelector(".app-header");
 const goToOtherSectionsSpot = document.querySelector(".other");
 const nav = document.querySelector(".nav");
@@ -193,16 +196,37 @@ function createErrorMessageElement(errorMessage, elementToInsertAboveIt) {
   elementToInsertAboveIt.insertAdjacentElement("beforebegin", element);
   setTimeout(() => {
     element.remove();
-  }, 1500);
+  }, 2000);
 }
 
 function createNewAccount(form) {
   const inputsObject = Object.fromEntries([...new FormData(form)]);
-  const submitBtn = document.querySelector(".submit-createAccount-btn");
+  const submitBtn = form.querySelector(".submit-createAccount-btn");
+  const currenciesAbbreviations = Object.keys(currencies);
+  const currenciesInWords = Object.values(currencies);
   if (Object.values(inputsObject).some((value) => value === "")) {
     return createErrorMessageElement("Please fill out all fields!", submitBtn);
   }
-  const newAccount = { ...inputsObject, movements: [], interestRate: 1.5 };
+  if (
+    !currenciesAbbreviations.includes(inputsObject.currency) &&
+    !currenciesInWords.includes(inputsObject.currency)
+  )
+    return createErrorMessageElement(
+      "Sorry, This currency is not recognized!",
+      submitBtn
+    );
+  if (!locales.includes(inputsObject.locale))
+    return createErrorMessageElement(
+      "Sorry, This locale is not recognized!",
+      submitBtn
+    );
+
+  const newAccount = {
+    ...inputsObject,
+    movements: [],
+    interestRate: 1.5,
+    balance: 0,
+  };
   if (isDuplicateAccount(newAccount))
     return createErrorMessageElement(
       "Sorry, this account is already exist!",
@@ -211,7 +235,13 @@ function createNewAccount(form) {
   form.reset();
   allAccounts.push(newAccount);
   localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
-  localStorage.setItem("neededAccount", JSON.stringify(newAccount));
+  localStorage.setItem(
+    "requestedAccount",
+    JSON.stringify({
+      userName: newAccount.userName,
+      password: newAccount.password,
+    })
+  );
   sessionStorage.setItem("formSubmitted", "true");
   createSpinnerAndRedirect();
 }
@@ -267,7 +297,13 @@ function openAccount(form) {
     );
   }
 
-  localStorage.setItem("neededAccount", JSON.stringify(targetAccount));
+  localStorage.setItem(
+    "requestedAccount",
+    JSON.stringify({
+      userName: targetAccount.userName,
+      password: targetAccount.password,
+    })
+  );
   sessionStorage.setItem("formSubmitted", "true");
   createSpinnerAndRedirect();
 }
