@@ -17,6 +17,7 @@ if (!formSubmitted) window.location.href = "index.html";
 sessionStorage.removeItem("formSubmitted");
 
 let movementsCounter = 0;
+let myInterval;
 
 function greetUser(firstName, lastName) {
   document.querySelector(
@@ -25,7 +26,8 @@ function greetUser(firstName, lastName) {
 }
 
 function calculateDisplayCurrentBalance(account) {
-  account.balance = account.movements.reduce(
+  const allMovements = account.movements.map((movement) => movement.amount);
+  account.balance = allMovements.reduce(
     (balance, movement) => balance + movement,
     0
   );
@@ -51,15 +53,16 @@ function DisplayCurrentDate(account) {
 }
 
 function calculateDisplaySummary(account) {
-  const totalIncome = account.movements
+  const allMovements = account.movements.map((movement) => movement.amount);
+  const totalIncome = allMovements
     .filter((movement) => Math.sign(movement) === 1)
     .reduce((income, deposit) => income + deposit, 0);
 
-  const totalOutcome = account.movements
+  const totalOutcome = allMovements
     .filter((movement) => Math.sign(movement) === -1)
     .reduce((outcome, withdrawal) => outcome + withdrawal, 0);
 
-  const totalInterest = account.movements
+  const totalInterest = allMovements
     .filter((movement) => Math.sign(movement) === 1)
     .map((income) => (income * account.interestRate) / 100)
     .reduce((benifit, interest) => benifit + interest, 0);
@@ -85,13 +88,15 @@ function calculateDisplaySummary(account) {
 }
 
 function startLogoutTimer() {
+  const logoutTimerSpot = document.querySelector(".logout-timer");
   const logoutTime = 300; // 5 minutes in MS
+  logoutTimerSpot.textContent = "5:00";
   let timeLeft = logoutTime;
-  const myInterval = setInterval(() => {
+  myInterval = setInterval(() => {
     timeLeft--;
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
-    document.querySelector(".logout-timer").textContent = `${minutes
+    logoutTimerSpot.textContent = `${minutes
       .toString()
       .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
     if (timeLeft === 0) {
@@ -145,20 +150,14 @@ function createMovementElement({ movementType, movementDate, movementAmount }) {
     movementsCounter + 1
   } ${movementType[0].toUpperCase()}${movementType.slice(1)}</div>
     <div class="movement-date">${movementDate}</div>
-    <div class="movement-value">${
-      movementType === "withdrawal"
-        ? `-${movementAmount}`
-        : movementType === "transfer"
-        ? `-${movementAmount}`
-        : movementAmount
-    }</div>
+    <div class="movement-value">${movementAmount}</div>
   </div>
  `;
   movementsSpot.insertAdjacentHTML("afterbegin", movementElement);
   movementsCounter++;
 }
 
-function checkMovement(movementType, movementObject) {
+function checkMovement(movementType, movementObject, movementForm) {
   if (movementType === "deposit") {
     createMovementElement({
       movementType,
@@ -169,11 +168,17 @@ function checkMovement(movementType, movementObject) {
         amount: movementObject.amount,
       }),
     });
-    targetAccount.movements.push(+movementObject.amount);
-    console.log(targetAccount);
+    targetAccount.movements.push({
+      type: movementType,
+      date: getRelativeTime(new Date(), targetAccount.locale),
+      amount: +movementObject.amount,
+    });
     calculateDisplayCurrentBalance(targetAccount);
     calculateDisplaySummary(targetAccount);
     localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
+    movementForm.reset();
+    clearInterval(myInterval);
+    startLogoutTimer();
   }
   if (movementType === "withdrawal") {
     if (
@@ -190,12 +195,92 @@ function checkMovement(movementType, movementObject) {
         amount: movementObject.amount,
       }),
     });
-    targetAccount.movements.push(-movementObject.amount);
+    targetAccount.movements.push({
+      type: movementType,
+      date: getRelativeTime(new Date(), targetAccount.locale),
+      amount: -movementObject.amount,
+    });
     calculateDisplayCurrentBalance(targetAccount);
     calculateDisplaySummary(targetAccount);
     localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
-
-    console.log(targetAccount);
+    movementForm.reset();
+    clearInterval(myInterval);
+    startLogoutTimer();
+  }
+  if (movementType === "loan") {
+    if (targetAccount.balance <= movementObject.amount * 0.1) return;
+    setTimeout(() => {
+      createMovementElement({
+        movementType,
+        movementDate: getRelativeTime(new Date(), targetAccount.locale),
+        movementAmount: getFormattedAmount({
+          currency: targetAccount.currency,
+          locale: targetAccount.locale,
+          amount: movementObject.amount,
+        }),
+      });
+      targetAccount.movements.push({
+        type: movementType,
+        date: getRelativeTime(new Date(), targetAccount.locale),
+        amount: +movementObject.amount,
+      });
+      calculateDisplayCurrentBalance(targetAccount);
+      calculateDisplaySummary(targetAccount);
+      localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
+      movementForm.reset();
+      clearInterval(myInterval);
+      startLogoutTimer();
+    }, 2000);
+  }
+  if (movementType === "transfer") {
+    const receiverAccount = allAccounts.find(
+      (account) => account.userName === movementObject.sendTo
+    );
+    if (receiverAccount == null) return;
+    createMovementElement({
+      movementType,
+      movementDate: getRelativeTime(new Date(), targetAccount.locale),
+      movementAmount: getFormattedAmount({
+        currency: targetAccount.currency,
+        locale: targetAccount.locale,
+        amount: movementObject.amount,
+      }),
+    });
+    receiverAccount.movements.push({
+      type: movementType,
+      date: getRelativeTime(new Date(), targetAccount.locale),
+      amount: +movementObject.amount,
+    });
+    receiverAccount.balance += +movementObject.amount;
+    targetAccount.movements.push({
+      type: movementType,
+      date: getRelativeTime(new Date(), targetAccount.locale),
+      amount: -movementObject.amount,
+    });
+    calculateDisplayCurrentBalance(targetAccount);
+    calculateDisplaySummary(targetAccount);
+    localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
+    movementForm.reset();
+    clearInterval(myInterval);
+    startLogoutTimer();
+  }
+  if (movementType === "close") {
+    if (
+      targetAccount.userName !== movementObject.userName ||
+      targetAccount.password !== movementObject.password
+    )
+      return;
+    const accountAboutToDelete = allAccounts.findIndex(
+      (account) =>
+        account.userName === targetAccount.userName &&
+        account.password === targetAccount.password
+    );
+    if (accountAboutToDelete === -1) return;
+    allAccounts.splice(accountAboutToDelete, 1);
+    localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
+    localStorage.removeItem("requestedAccount");
+    window.location.href = "index.html";
+    movementForm.reset();
   }
 }
 
@@ -204,17 +289,27 @@ allOperationForms.forEach((form) => {
     event.preventDefault();
     const movementObject = Object.fromEntries([...new FormData(form)]);
     if (Object.values(movementObject).some((value) => value === "")) return;
-    form.reset();
-    checkMovement(form.dataset.operation, movementObject);
+    checkMovement(form.dataset.operation, movementObject, form);
   });
 });
 
 function init() {
+  targetAccount.movements.forEach((movement) =>
+    createMovementElement({
+      movementType: movement.type,
+      movementDate: movement.date,
+      movementAmount: getFormattedAmount({
+        currency: targetAccount.currency,
+        locale: targetAccount.locale,
+        amount: Math.abs(movement.amount),
+      }),
+    })
+  );
   greetUser(targetAccount.firstName, targetAccount.lastName);
   calculateDisplayCurrentBalance(targetAccount);
   DisplayCurrentDate(targetAccount);
   calculateDisplaySummary(targetAccount);
-  // startLogoutTimer();
+  startLogoutTimer();
 }
 
 init();
