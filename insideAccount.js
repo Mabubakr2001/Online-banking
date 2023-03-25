@@ -90,7 +90,7 @@ function calculateDisplaySummary(account) {
 function startLogoutTimer() {
   const logoutTimerSpot = document.querySelector(".logout-timer");
   const logoutTime = 300; // 5 minutes in MS
-  logoutTimerSpot.textContent = "5:00";
+  logoutTimerSpot.textContent = "05:00";
   let timeLeft = logoutTime;
   myInterval = setInterval(() => {
     timeLeft--;
