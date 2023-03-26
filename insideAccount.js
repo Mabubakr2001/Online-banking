@@ -183,7 +183,11 @@ function checkMovement(movementType, movementObject, movementForm) {
       createMovementElement({
         movementType,
         movementDate: getRelativeTime(new Date(), locale),
-        movementAmount: getFormattedAmount({ currency, locale, amount }),
+        movementAmount: getFormattedAmount({
+          currency,
+          locale,
+          amount: -amount,
+        }),
       });
       movements.push({
         type: movementType,
@@ -202,25 +206,31 @@ function checkMovement(movementType, movementObject, movementForm) {
           movementDate: getRelativeTime(new Date(), locale),
           movementAmount: getFormattedAmount({ currency, locale, amount }),
         });
-        movements.push({
+        targetAccount.movements.push({
           type: movementType,
           date: getRelativeTime(new Date(), locale),
           amount: +amount,
         });
+        calculateDisplayCurrentBalance(targetAccount);
+        calculateDisplaySummary(targetAccount);
+        localStorage.setItem("allAccounts", JSON.stringify(allAccounts));
       }, 2000);
       break;
-
     case "transfer":
       const receiverAccount = allAccounts.find(
         (account) => account.userName === sendTo
       );
-      if (!receiverAccount) {
+      if (!receiverAccount || targetAccount.balance < amount) {
         return;
       }
       createMovementElement({
         movementType,
         movementDate: getRelativeTime(new Date(), locale),
-        movementAmount: getFormattedAmount({ currency, locale, amount }),
+        movementAmount: getFormattedAmount({
+          currency,
+          locale,
+          amount: -amount,
+        }),
       });
       receiverAccount.movements.push({
         type: movementType,
@@ -284,7 +294,7 @@ function init() {
       movementAmount: getFormattedAmount({
         currency: targetAccount.currency,
         locale: targetAccount.locale,
-        amount: Math.abs(movement.amount),
+        amount: movement.amount,
       }),
     })
   );
