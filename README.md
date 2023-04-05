@@ -1,6 +1,6 @@
 # Online Banking Website
 
-Welcome to the Online Banking Website! This is a simple website created with **HTML**, **CSS**, and **JavaScript**. The website allows users to perfom various banking transactions such as making deposits, withdrawing money, transferring money, requesting loans, and deleting their account.
+Welcome to the Online Banking Website! This is a simple website created with **HTML**, **CSS**, and **JavaScript**. The website allows users to perform various banking transactions such as making deposits, withdrawing money, transferring money, requesting loans, and deleting their accounts.
 
 ## Features
 
